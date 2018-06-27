@@ -1,0 +1,24 @@
+{
+  "name": "auto-deploy-webhook",
+  "version": "1.0.0",
+  "description": "This is a webhook project for push events to achieve the auto deploy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/likeconan/auto-deploy-webhook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/likeconan/auto-deploy-webhook/issues"
+  },
+  "homepage": "https://github.com/likeconan/auto-deploy-webhook#readme",
+  "dependencies": {
+    "colors": "^1.3.0",
+    "express": "^4.16.3"
+  }
+}
