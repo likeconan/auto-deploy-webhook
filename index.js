@@ -40,10 +40,12 @@ app.post('/', function (req, res) {
     }
 })
 
-app.get('/deploy', function (req, res) {
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/auto-deploy.log'))
 })
 
-app.listen(4040, function () {
-    console.log('deploy success run on 4040')
+const port = 7033;
+
+app.listen(port, function () {
+    console.log('deploy success run on ' + port)
 })
