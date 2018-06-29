@@ -27,11 +27,12 @@ app.post('/', function (req, res) {
             execSync(`cd /app/test/${data.repository.name} && yarn install && pm2 restart t-${data.repository.name}`);
             logger.info(`success build ${data.repository.name} on ${data.ref}`)
 
-        } else if (data.ref === 'refs/heads/master') {
-            execSync(`cd /app/production/${data.repository.name} && git pull`);
-            execSync(`cd /app/production/${data.repository.name} && yarn install && pm2 restart ${data.repository.name}`)
-            logger.info(`success build ${data.repository.name} on ${data.ref}`)
         }
+        // else if (data.ref === 'refs/heads/master') {
+        //     execSync(`cd /app/production/${data.repository.name} && git pull`);
+        //     execSync(`cd /app/production/${data.repository.name} && yarn install && pm2 restart ${data.repository.name}`)
+        //     logger.info(`success build ${data.repository.name} on ${data.ref}`)
+        // }
         res.send('success')
 
     } catch (error) {
