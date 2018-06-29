@@ -22,7 +22,9 @@ const logger = log4js.getLogger('auto-deploy')
 app.post('/', function (req, res) {
     try {
         const data = req.body;
+        console.log(data);
         if (data.ref === 'refs/heads/test') {
+            console.log('try to deploy with test')
             execSync(`cd /app/test/${data.repository.name} && git pull`);
             execSync(`cd /app/test/${data.repository.name} && yarn install && pm2 restart t-${data.repository.name}`);
             logger.info(`success build ${data.repository.name} on ${data.ref}`)
@@ -33,8 +35,8 @@ app.post('/', function (req, res) {
         //     execSync(`cd /app/production/${data.repository.name} && yarn install && pm2 restart ${data.repository.name}`)
         //     logger.info(`success build ${data.repository.name} on ${data.ref}`)
         // }
+        console.log('success deploy')
         res.send('success')
-
     } catch (error) {
         logger.error(error.message)
     }
