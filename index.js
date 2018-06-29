@@ -43,4 +43,6 @@ app.get('/deploy', function (req, res) {
     res.sendFile(path.join(__dirname, '/auto-deploy.log'))
 })
 
-app.listen(4040)
+app.listen(4040, function () {
+    console.log('deploy success run on 4040')
+})
