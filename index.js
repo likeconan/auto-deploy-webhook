@@ -46,6 +46,14 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/auto-deploy.log'))
 })
 
+app.get('/test/api',function(req,res){
+    res.sendFile(path.join(__dirname, '../../test/tcweibo-api/weibo-api-admin.log'))
+})
+
+app.get('/production/api',function(req,res){
+    res.sendFile(path.join(__dirname, '../../test/tcweibo-api/weibo-api-admin.log'))
+})
+
 const port = 7033;
 
 app.listen(port, function () {
