@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var log4js = require('log4js');
 var path = require('path')
-
+var fs = require('fs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -46,12 +46,24 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/auto-deploy.log'))
 })
 
-app.get('/test/api',function(req,res){
+app.get('/test/api', function (req, res) {
     res.sendFile(path.join(__dirname, '../../test/tcweibo-api/weibo-api-admin.log'))
 })
 
-app.get('/production/api',function(req,res){
+app.get('/production/api', function (req, res) {
     res.sendFile(path.join(__dirname, '../../test/tcweibo-api/weibo-api-admin.log'))
+})
+
+app.get('/logs', function (req, res) {
+    const files = fs.readdirSync('/root/.pm2/logs')
+    let a = ''
+    files.forEach((val) => a = a + `<p><a href='/logs/${val}' target='_blank'>${val}</a></p>`)
+    const html = `<div><h1>Logs to View</h1>${a}</div>`
+    res.send(html)
+})
+
+app.get('/logs/:path', function (req, res) {
+    res.sendFile(`/root/.pm2/logs/${req.params.path}`)
 })
 
 const port = 7033;
