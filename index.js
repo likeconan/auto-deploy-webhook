@@ -26,13 +26,22 @@ app.post('/', function (req, res) {
         if (data.ref === 'refs/heads/test') {
             console.log('try to deploy with test')
             execSync(`cd /app/test/${data.repository.name} && git pull`);
-            execSync(`cd /app/test/${data.repository.name} && yarn install && pm2 restart t-${data.repository.name}`);
+            if (data.repository.name === 'tcweibo-api') {
+                execSync(`cd /app/test/${data.repository.name} && yarn install && pm2 restart ecosystem.config.js --only t-${data.repository.name}`);
+            } else {
+                execSync(`cd /app/test/${data.repository.name} && yarn install && pm2 restart t-${data.repository.name}`);
+            }
+
             logger.info(`success build ${data.repository.name} on ${data.ref}`)
 
         }
         else if (data.ref === 'refs/heads/master') {
             execSync(`cd /app/production/${data.repository.name} && git pull`);
-            execSync(`cd /app/production/${data.repository.name} && yarn install && pm2 restart ${data.repository.name}`)
+            if (data.repository.name === 'tcweibo-api') {
+                execSync(`cd /app/production/${data.repository.name} && yarn install && pm2 restart ecosystem.config.js --only ${data.repository.name}`)
+            } else {
+                execSync(`cd /app/production/${data.repository.name} && yarn install && pm2 restart ${data.repository.name}`)
+            }
             logger.info(`success build ${data.repository.name} on ${data.ref}`)
         }
         console.log('success deploy')
